@@ -7,7 +7,7 @@ from gemini_client import GeminiClient
 load_dotenv()
 import os
 
-api_key =  st.secrets.get("GEMINI_API_KEY")
+api_key =  st.secrets.get("GEMINI_API_KEY") or os.getenv("GEMINI_API_KEY")
 if not api_key:
     raise ValueError("GEMINI_API_KEY not found in .env file")
 
