@@ -7,11 +7,8 @@ from google.genai import types
 
 
 class GeminiClient:
-    def __init__(self):
-        load_dotenv()
-        api_key = os.getenv("GEMINI_API_KEY")
-        if not api_key:
-            raise ValueError("GEMINI_API_KEY not found in .env file")
+    def __init__(self,api_key=None):
+        
         os.environ["GENAI_API_KEY"] = api_key
         self.client = genai.Client()
 

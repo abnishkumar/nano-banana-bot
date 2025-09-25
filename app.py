@@ -1,8 +1,15 @@
+from dotenv import load_dotenv
 import streamlit as st
 from chatbot import init_chat, display_messages, add_message, clear_history
 from utils import handle_file_upload
 from gemini_client import GeminiClient
 
+load_dotenv()
+import os
+
+api_key =  st.secrets.get("GEMINI_API_KEY")
+if not api_key:
+    raise ValueError("GEMINI_API_KEY not found in .env file")
 
 st.set_page_config(page_title="Gemini Nano Banana Chatbot",
                    initial_sidebar_state="auto")
@@ -27,7 +34,7 @@ if prompt := st.chat_input("Type your request..."):
 
     with st.chat_message("assistant", avatar="🤖"):
         with st.spinner("Generating response..."):
-            gemini = GeminiClient()
+            gemini = GeminiClient(api_key)
             print(prompt , uploaded_image)
             response = gemini.generate(prompt, uploaded_image)
 
